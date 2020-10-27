@@ -5,44 +5,61 @@ import { Image } from 'antd'
 
 import Unsplash, { toJson } from 'unsplash-js'
 import styled from 'styled-components'
+import uid from 'uid'
+import InfiniteScroll from 'react-infinite-scroller'
+
+const PhotoGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 15rem);
+  grid-gap: 1rem;
+  justify-content: center;
+`
+const PhotoTile = styled.div`
+  width: 15rem;
+  height: 15rem;
+  background-image: url(${props => props.src});
+`
 
 export default () => {
   const [firebaseApp] = firebase.apps
   const { unsplashAccessKey, unsplashSecretKey } = firebaseApp.options
   const [photos, setPhotos] = useState([])
+  const [page, setPage] = useState(1)
+  const [loading, setLoading] = useState(false)
 
   const unsplash = new Unsplash({ accessKey: unsplashAccessKey })
 
-  const PhotoGrid = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 15rem);
-    /* grid-template-rows: repeat(auto-fill, 15rem); */
-    grid-gap: 1rem;
-    justify-content: center;
-  `
-  const PhotoTile = styled.div`
-    width: 15rem;
-    height: 15rem;
-    background-image: url(${props => props.src});
-  `
-
   const getPhotos = async () => {
-    const res = await unsplash.search.photos('landscape')
+    setLoading(true)
+    const res = await unsplash.search.photos('landscape', page)
     const json = await toJson(res)
-    setPhotos(json.results)
-    console.log(json.results)
+    console.log(page, json)
+    setPhotos([...photos, ...json.results])
+    setLoading(false)
   }
 
   useEffect(() => {
     getPhotos()
-  }, [])
+  }, [page])
+
+  window.onscroll = function (ev) {
+    if (
+      window.innerHeight + window.scrollY >= document.body.scrollHeight - 50 &&
+      !loading
+    ) {
+      // you're at the bottom of the page
+      console.log('on the bottom')
+      setPage(page + 1)
+    }
+  }
 
   return (
     <>
       <PhotoGrid>
         {photos.map(p => (
-          <PhotoTile key={p.id} src={p.urls.small} />
+          <PhotoTile key={uid()} src={p.urls?.small} />
         ))}
+        <button onClick={() => setPage(page + 1)}>More</button>
       </PhotoGrid>
     </>
   )
