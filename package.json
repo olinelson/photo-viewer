@@ -9,13 +9,18 @@
     "@testing-library/user-event": "^11.1.0",
     "antd": "^4.5.2",
     "craco-less": "^1.17.0",
+    "firebase": "^8.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.3",
+    "styled-components": "^5.2.0",
+    "unsplash-js": "^6.3.0"
   },
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "deploy": "yarn build && firebase deploy",
     "test": "craco test"
   },
   "eslintConfig": {
