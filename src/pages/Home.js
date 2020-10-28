@@ -1,24 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import firebase from 'firebase'
 
-import { Image } from 'antd'
-
 import Unsplash, { toJson } from 'unsplash-js'
-import styled from 'styled-components'
-import uid from 'uid'
-import InfiniteScroll from 'react-infinite-scroller'
-
-const PhotoGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 15rem);
-  grid-gap: 1rem;
-  justify-content: center;
-`
-const PhotoTile = styled.div`
-  width: 15rem;
-  height: 15rem;
-  background-image: url(${props => props.src});
-`
+import FadeIn from '../components/FadeIn'
+import PhotoGrid from '../components/PhotoGrid'
+import PhotoTile from '../components/PhotoTile'
+import LoadingFooter from '../components/LoadingFooter'
+import SelectedImageModal from '../components/SelectedImageModal'
 
 export default () => {
   const [firebaseApp] = firebase.apps
@@ -26,15 +14,21 @@ export default () => {
   const [photos, setPhotos] = useState([])
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
+  const [selectedImage, setSelectedImage] = useState({})
+  const seenIds = useRef([])
+  const total_pages = useRef(1)
 
   const unsplash = new Unsplash({ accessKey: unsplashAccessKey })
 
   const getPhotos = async () => {
     setLoading(true)
-    const res = await unsplash.search.photos('landscape', page)
+    const res = await unsplash.search.photos('landscape', page, 20)
     const json = await toJson(res)
-    console.log(page, json)
-    setPhotos([...photos, ...json.results])
+
+    const newPhotos = json.results.filter(p => !seenIds.current.includes(p.id))
+    seenIds.current = newPhotos.map(r => r.id)
+
+    setPhotos([...photos, ...newPhotos])
     setLoading(false)
   }
 
@@ -44,23 +38,40 @@ export default () => {
 
   window.onscroll = function (ev) {
     if (
-      window.innerHeight + window.scrollY >= document.body.scrollHeight - 50 &&
+      window.innerHeight + window.scrollY >= document.body.scrollHeight - 100 &&
       !loading
     ) {
-      // you're at the bottom of the page
-      console.log('on the bottom')
       setPage(page + 1)
     }
   }
 
   return (
     <>
-      <PhotoGrid>
+      <PhotoGrid size={20}>
         {photos.map(p => (
-          <PhotoTile key={uid()} src={p.urls?.small} />
+          <FadeIn
+            isPortrait={p.height > p.width}
+            key={p.id}
+            duration='0.8s'
+            delay='0.2s'
+          >
+            <PhotoTile
+              hoverable
+              bordered={true}
+              onClick={() => setSelectedImage(p)}
+              src={p.urls?.regular}
+            />
+          </FadeIn>
         ))}
-        <button onClick={() => setPage(page + 1)}>More</button>
+        {console.log(photos)}
       </PhotoGrid>
+
+      {loading ? <LoadingFooter /> : null}
+
+      <SelectedImageModal
+        selectedImage={selectedImage}
+        setSelectedImage={setSelectedImage}
+      />
     </>
   )
 }

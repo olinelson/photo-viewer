@@ -17,8 +17,11 @@ const StyledHeader = styled(Header)`
   align-content: center;
   padding: 0 1.5rem;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 `
-const SiteTitle = styled.h1`
+const SiteTitle = styled(Link)`
   font-size: 2rem;
   margin: 0;
   padding: 0;
@@ -31,6 +34,7 @@ const StyledSider = styled(Sider)`
 `
 const StyledContent = styled(Content)`
   padding: 1.5rem;
+  background-color: white;
 `
 
 export default props => {
@@ -40,11 +44,12 @@ export default props => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <StyledHeader>
-        <SiteTitle>Photo viewer</SiteTitle>
+        <SiteTitle to='/'>Photo viewer</SiteTitle>
+        <Link to='/about'>About</Link>
         <Button type='primary' shape='circle' icon={<ReloadOutlined />} />
       </StyledHeader>
       <Layout>
-        <StyledSider
+        {/* <StyledSider
           width={200}
           collapsed={sideBarCollapsed}
           collapsible
@@ -65,7 +70,7 @@ export default props => {
               <Link to='/about'>About</Link>
             </Menu.Item>
           </Menu>
-        </StyledSider>
+        </StyledSider> */}
         <Layout>
           <StyledContent>{props.children}</StyledContent>
         </Layout>
