@@ -6,8 +6,9 @@ import PhotoGrid from '../components/PhotoGrid'
 import LoadingFooter from '../components/LoadingFooter'
 import SelectedImageModal from '../components/SelectedPhotoModal'
 import { message } from 'antd'
+import PhotoList from '../components/PhotoList'
 
-export default () => {
+export default ({ settings }) => {
   const [firebaseApp] = firebase.apps
   const { unsplashAccessKey, unsplashSecretKey } = firebaseApp.options
   const [photos, setPhotos] = useState([])
@@ -17,12 +18,16 @@ export default () => {
   const seenIds = useRef([])
   const total_pages = useRef(1)
 
+  const { pageSize, photoSize, photoView } = settings
+
+  console.log({ settings })
+
   const unsplash = new Unsplash({ accessKey: unsplashAccessKey })
 
   const getPhotos = async () => {
     try {
       setLoading(true)
-      const res = await unsplash.search.photos('landscape', page, 20)
+      const res = await unsplash.search.photos('landscape', page, pageSize)
 
       const json = await toJson(res)
 
@@ -55,7 +60,19 @@ export default () => {
 
   return (
     <>
-      <PhotoGrid photos={photos} setSelectedPhoto={setSelectedPhoto} />
+      {photoView === 'grid' ? (
+        <PhotoGrid
+          photos={photos}
+          size={photoSize}
+          setSelectedPhoto={setSelectedPhoto}
+        />
+      ) : (
+        <PhotoList
+          photos={photos}
+          size={photoSize}
+          setSelectedPhoto={setSelectedPhoto}
+        />
+      )}
 
       {loading ? <LoadingFooter /> : null}
 

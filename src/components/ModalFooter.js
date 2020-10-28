@@ -4,30 +4,39 @@ import { InstagramOutlined, TwitterOutlined } from '@ant-design/icons'
 import { Avatar, Button } from 'antd'
 
 const ModalFooter = styled.div`
-  display: grid;
-  grid-gap: 1rem;
+  padding: ${props => (props.listView ? '0 1rem' : null)};
 `
 const AvatarContainer = styled.div`
   display: grid;
   grid-template-columns: auto auto 1fr;
+
   align-items: center;
   grid-gap: 0.25rem;
   h4 {
     margin: none;
   }
+  width: 100%;
+`
+const SocialButtons = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-end;
+  justify-self: end;
 `
 
 const Description = styled.p`
   text-align: left;
+  margin-top: 1rem;
 `
 
-export default ({ selectedPhoto }) => {
+export default ({ selectedPhoto, listView }) => {
   return (
-    <ModalFooter>
-      <AvatarContainer>
+    <ModalFooter listView>
+      <AvatarContainer listView>
         <Avatar size={40} src={selectedPhoto?.user?.profile_image?.small} />
         <h4>{selectedPhoto?.user?.username}</h4>
-        <div>
+        <SocialButtons>
           {selectedPhoto?.user?.twitter_username ? (
             <Button
               type='link'
@@ -44,7 +53,7 @@ export default ({ selectedPhoto }) => {
               icon={<InstagramOutlined />}
             ></Button>
           ) : null}
-        </div>
+        </SocialButtons>
       </AvatarContainer>
       <Description>{selectedPhoto.description}</Description>
     </ModalFooter>

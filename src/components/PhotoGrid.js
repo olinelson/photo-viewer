@@ -11,9 +11,9 @@ const PhotoGrid = styled.div`
   justify-content: center;
 `
 
-export default ({ photos, setSelectedPhoto }) => {
+export default ({ photos, setSelectedPhoto, size }) => {
   return (
-    <PhotoGrid size={20}>
+    <PhotoGrid size={size}>
       {photos.map(p => (
         <FadeIn
           isPortrait={p.height > p.width}
