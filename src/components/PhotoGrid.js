@@ -1,4 +1,7 @@
+import React from 'react'
 import styled from 'styled-components'
+import FadeIn from '../components/FadeIn'
+import PhotoTile from '../components/PhotoTile'
 
 const PhotoGrid = styled.div`
   display: grid;
@@ -8,4 +11,25 @@ const PhotoGrid = styled.div`
   justify-content: center;
 `
 
-export default PhotoGrid
+export default ({ photos, setSelectedPhoto }) => {
+  return (
+    <PhotoGrid size={20}>
+      {photos.map(p => (
+        <FadeIn
+          isPortrait={p.height > p.width}
+          key={p.id}
+          duration='0.8s'
+          delay='0.2s'
+        >
+          <PhotoTile
+            hoverable
+            bordered={true}
+            onClick={() => setSelectedPhoto(p)}
+            src={p.urls?.regular}
+          />
+        </FadeIn>
+      ))}
+      {console.log(photos)}
+    </PhotoGrid>
+  )
+}

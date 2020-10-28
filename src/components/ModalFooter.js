@@ -21,32 +21,32 @@ const Description = styled.p`
   text-align: left;
 `
 
-export default ({ selectedImage }) => {
+export default ({ selectedPhoto }) => {
   return (
     <ModalFooter>
       <AvatarContainer>
-        <Avatar size={40} src={selectedImage?.user?.profile_image?.small} />
-        <h4>{selectedImage?.user?.username}</h4>
+        <Avatar size={40} src={selectedPhoto?.user?.profile_image?.small} />
+        <h4>{selectedPhoto?.user?.username}</h4>
         <div>
-          {selectedImage?.user?.twitter_username ? (
+          {selectedPhoto?.user?.twitter_username ? (
             <Button
               type='link'
-              href={`https://twitter.com/${selectedImage?.user?.twitter_username}`}
+              href={`https://twitter.com/${selectedPhoto?.user?.twitter_username}`}
               target='_blank'
               icon={<TwitterOutlined />}
             ></Button>
           ) : null}
-          {selectedImage?.user?.instagram_username ? (
+          {selectedPhoto?.user?.instagram_username ? (
             <Button
               type='link'
-              href={`https://www.instagram.com/${selectedImage?.user?.twitter_username}`}
+              href={`https://www.instagram.com/${selectedPhoto?.user?.twitter_username}`}
               target='_blank'
               icon={<InstagramOutlined />}
             ></Button>
           ) : null}
         </div>
       </AvatarContainer>
-      <Description>{selectedImage.description}</Description>
+      <Description>{selectedPhoto.description}</Description>
     </ModalFooter>
   )
 }

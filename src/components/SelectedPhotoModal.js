@@ -2,22 +2,22 @@ import React from 'react'
 import { Modal, Image } from 'antd'
 import { Blurhash } from 'react-blurhash'
 import ModalFooter from './ModalFooter'
-export default ({ selectedImage, setSelectedImage }) => {
+export default ({ selectedPhoto, setSelectedPhoto }) => {
   return (
     <Modal
-      visible={selectedImage.id}
-      onCancel={() => setSelectedImage({})}
+      visible={selectedPhoto.id}
+      onCancel={() => setSelectedPhoto({})}
       destroyOnClose
       footer={null}
       bodyStyle={{ padding: 0 }}
-      footer={<ModalFooter selectedImage={selectedImage} />}
+      footer={<ModalFooter selectedPhoto={selectedPhoto} />}
     >
       <Image
-        src={selectedImage?.urls?.full}
-        alt={selectedImage?.alt_description}
+        src={selectedPhoto?.urls?.full}
+        alt={selectedPhoto?.alt_description}
         placeholder={
           <Blurhash
-            hash={selectedImage?.blur_hash}
+            hash={selectedPhoto?.blur_hash}
             width={'100%'}
             height={'100%'}
             resolutionX={32}

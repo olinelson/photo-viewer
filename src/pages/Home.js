@@ -6,7 +6,7 @@ import FadeIn from '../components/FadeIn'
 import PhotoGrid from '../components/PhotoGrid'
 import PhotoTile from '../components/PhotoTile'
 import LoadingFooter from '../components/LoadingFooter'
-import SelectedImageModal from '../components/SelectedImageModal'
+import SelectedImageModal from '../components/SelectedPhotoModal'
 
 export default () => {
   const [firebaseApp] = firebase.apps
@@ -14,7 +14,7 @@ export default () => {
   const [photos, setPhotos] = useState([])
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
-  const [selectedImage, setSelectedImage] = useState({})
+  const [selectedPhoto, setSelectedPhoto] = useState({})
   const seenIds = useRef([])
   const total_pages = useRef(1)
 
@@ -47,7 +47,8 @@ export default () => {
 
   return (
     <>
-      <PhotoGrid size={20}>
+      <PhotoGrid photos={photos} setSelectedPhoto={setSelectedPhoto} />
+      {/* <PhotoGrid size={20}>
         {photos.map(p => (
           <FadeIn
             isPortrait={p.height > p.width}
@@ -64,13 +65,13 @@ export default () => {
           </FadeIn>
         ))}
         {console.log(photos)}
-      </PhotoGrid>
+      </PhotoGrid> */}
 
       {loading ? <LoadingFooter /> : null}
 
       <SelectedImageModal
-        selectedImage={selectedImage}
-        setSelectedImage={setSelectedImage}
+        selectedPhoto={selectedPhoto}
+        setSelectedPhoto={setSelectedPhoto}
       />
     </>
   )
