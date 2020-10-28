@@ -49,31 +49,7 @@ export default props => {
         <Button type='primary' shape='circle' icon={<ReloadOutlined />} />
       </StyledHeader>
       <Layout>
-        {/* <StyledSider
-          width={200}
-          collapsed={sideBarCollapsed}
-          collapsible
-          onCollapse={setSideBarCollapsed}
-          theme={theme}
-        >
-          <Menu
-            theme={theme}
-            mode='inline'
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
-            style={{ height: '100%', borderRight: 0 }}
-          >
-            <Menu.Item key='2' icon={<FileImageOutlined />}>
-              <Link to='/'>Home</Link>
-            </Menu.Item>
-            <Menu.Item key='1' icon={<HomeOutlined />}>
-              <Link to='/about'>About</Link>
-            </Menu.Item>
-          </Menu>
-        </StyledSider> */}
-        <Layout>
-          <StyledContent>{props.children}</StyledContent>
-        </Layout>
+        <StyledContent>{props.children}</StyledContent>
       </Layout>
     </Layout>
   )

@@ -2,11 +2,10 @@ import React, { useEffect, useState, useRef } from 'react'
 import firebase from 'firebase'
 
 import Unsplash, { toJson } from 'unsplash-js'
-import FadeIn from '../components/FadeIn'
 import PhotoGrid from '../components/PhotoGrid'
-import PhotoTile from '../components/PhotoTile'
 import LoadingFooter from '../components/LoadingFooter'
 import SelectedImageModal from '../components/SelectedPhotoModal'
+import { message } from 'antd'
 
 export default () => {
   const [firebaseApp] = firebase.apps
@@ -21,21 +20,30 @@ export default () => {
   const unsplash = new Unsplash({ accessKey: unsplashAccessKey })
 
   const getPhotos = async () => {
-    setLoading(true)
-    const res = await unsplash.search.photos('landscape', page, 20)
-    const json = await toJson(res)
+    try {
+      setLoading(true)
+      const res = await unsplash.search.photos('landscape', page, 20)
 
-    const newPhotos = json.results.filter(p => !seenIds.current.includes(p.id))
-    seenIds.current = newPhotos.map(r => r.id)
+      const json = await toJson(res)
 
-    setPhotos([...photos, ...newPhotos])
-    setLoading(false)
+      const newPhotos = json.results.filter(
+        p => !seenIds.current.includes(p.id)
+      )
+      seenIds.current = newPhotos.map(r => r.id)
+
+      setPhotos([...photos, ...newPhotos])
+      setLoading(false)
+    } catch (error) {
+      message.error('Something went wrong...')
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
     getPhotos()
   }, [page])
 
+  // to revisit
   window.onscroll = function (ev) {
     if (
       window.innerHeight + window.scrollY >= document.body.scrollHeight - 100 &&
@@ -48,24 +56,6 @@ export default () => {
   return (
     <>
       <PhotoGrid photos={photos} setSelectedPhoto={setSelectedPhoto} />
-      {/* <PhotoGrid size={20}>
-        {photos.map(p => (
-          <FadeIn
-            isPortrait={p.height > p.width}
-            key={p.id}
-            duration='0.8s'
-            delay='0.2s'
-          >
-            <PhotoTile
-              hoverable
-              bordered={true}
-              onClick={() => setSelectedImage(p)}
-              src={p.urls?.regular}
-            />
-          </FadeIn>
-        ))}
-        {console.log(photos)}
-      </PhotoGrid> */}
 
       {loading ? <LoadingFooter /> : null}
 
