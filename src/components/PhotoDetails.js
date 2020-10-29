@@ -9,7 +9,6 @@ const PhotoDetails = styled.div`
 const AvatarContainer = styled.div`
   display: grid;
   grid-template-columns: auto auto 1fr;
-
   align-items: center;
   grid-gap: 0.25rem;
   h4 {

@@ -58,6 +58,8 @@ const App = () => {
       }
 
       totalPages.current = json.total_pages
+
+      // only add photos if they aren't duplicates
       const newPhotos = json.results.filter(
         p => !seenIds.current.includes(p.id)
       )
