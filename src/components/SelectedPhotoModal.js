@@ -1,7 +1,8 @@
 import React from 'react'
 import { Modal, Image } from 'antd'
 import { Blurhash } from 'react-blurhash'
-import ModalFooter from './ModalFooter'
+import PhotoDetails from './PhotoDetails'
+
 export default ({ selectedPhoto, setSelectedPhoto }) => {
   return (
     <Modal
@@ -10,7 +11,7 @@ export default ({ selectedPhoto, setSelectedPhoto }) => {
       destroyOnClose
       footer={null}
       bodyStyle={{ padding: 0 }}
-      footer={<ModalFooter selectedPhoto={selectedPhoto} />}
+      footer={<PhotoDetails selectedPhoto={selectedPhoto} />}
     >
       <Image
         src={selectedPhoto?.urls?.full}

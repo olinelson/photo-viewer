@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
-import { Layout, Menu, Breadcrumb, Typography, Button } from 'antd'
+import { Layout, Menu, Breadcrumb, Typography, Button, Switch } from 'antd'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import {
-  HomeOutlined,
-  FileImageOutlined,
-  ReloadOutlined
-} from '@ant-design/icons'
+import { SettingOutlined, ReloadOutlined } from '@ant-design/icons'
 
 const { Header, Content, Sider } = Layout
 
@@ -38,15 +34,25 @@ const StyledContent = styled(Content)`
 `
 
 export default props => {
-  const [sideBarCollapsed, setSideBarCollapsed] = useState(false)
-  const theme = 'light'
+  const { setSettingsDrawerOpen, reload } = props
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <StyledHeader>
         <SiteTitle to='/'>Photo viewer</SiteTitle>
         <Link to='/about'>About</Link>
-        <Button type='primary' shape='circle' icon={<ReloadOutlined />} />
+        <Button
+          type='primary'
+          onClick={reload}
+          shape='circle'
+          icon={<ReloadOutlined />}
+        />
+        <Button
+          onClick={() => setSettingsDrawerOpen(true)}
+          type='primary'
+          shape='circle'
+          icon={<SettingOutlined />}
+        />
       </StyledHeader>
       <Layout>
         <StyledContent>{props.children}</StyledContent>

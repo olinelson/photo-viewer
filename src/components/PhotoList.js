@@ -1,9 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import FadeIn from '../components/FadeIn'
-import PhotoTile from '../components/PhotoTile'
 import { List, Image } from 'antd'
-import ModalFooter from './ModalFooter'
+import PhotoDetails from './PhotoDetails'
 
 const ListItemContainer = styled.div`
   display: grid;
@@ -14,16 +13,17 @@ const ListItemContainer = styled.div`
 export default ({ photos, setSelectedPhoto, size }) => {
   return (
     <List
-      bordered
+      bordered={false}
       dataSource={photos}
       renderItem={p => (
-        <List.Item>
-          <ListItemContainer>
-            <Image src={p.urls.regular} width={`${size}rem`} />
-            <ModalFooter listView selectedPhoto={p} />
-          </ListItemContainer>
-          {/* <h1>{p.description}</h1> */}
-        </List.Item>
+        <FadeIn>
+          <List.Item>
+            <ListItemContainer>
+              <Image src={p.urls.regular} width={`${size}rem`} />
+              <PhotoDetails listView selectedPhoto={p} />
+            </ListItemContainer>
+          </List.Item>
+        </FadeIn>
       )}
     />
   )

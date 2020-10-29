@@ -29,7 +29,6 @@ export default ({ photos, setSelectedPhoto, size }) => {
           />
         </FadeIn>
       ))}
-      {console.log(photos)}
     </PhotoGrid>
   )
 }
