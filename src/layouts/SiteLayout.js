@@ -34,12 +34,9 @@ export default props => {
   const location = useLocation()
   const history = useHistory()
 
-  console.log(location)
-
   const { setSettingsDrawerOpen, reload } = props
 
   const navigateToPage = e => {
-    console.log('click ', e)
     history.push(e.key)
   }
 

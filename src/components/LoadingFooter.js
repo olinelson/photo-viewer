@@ -7,6 +7,7 @@ const Footer = styled.div`
   justify-content: center;
   align-items: center;
   height: 4rem;
+  padding: 4rem;
 `
 
 export default props => {

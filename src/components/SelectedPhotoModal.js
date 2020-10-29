@@ -9,11 +9,12 @@ export default ({ selectedPhoto, setSelectedPhoto }) => {
       visible={selectedPhoto.id}
       onCancel={() => setSelectedPhoto({})}
       destroyOnClose
+      centered
       bodyStyle={{ padding: 0 }}
       footer={<PhotoDetails selectedPhoto={selectedPhoto} />}
     >
       <Image
-        src={selectedPhoto?.urls?.full}
+        src={selectedPhoto?.urls?.regular}
         alt={selectedPhoto?.alt_description}
         placeholder={
           <Blurhash
