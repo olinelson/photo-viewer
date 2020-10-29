@@ -9,15 +9,20 @@ const BioContainer = styled.div`
   display: grid;
   grid-template-columns: minmax(20rem, 1fr) 1fr;
   grid-gap: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  max-width: 60rem;
+  justify-self: center;
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
   }
 `
+const PageContainer = styled.div`
+  display: grid;
+`
 
 export default () => {
   return (
-    <>
+    <PageContainer>
       {/* <Image src='https://olinelson.com/images/headshot.jpg' /> */}
       <BioContainer>
         <Image src='https://olinelson.com/images/headshot.jpg' />
@@ -43,6 +48,6 @@ export default () => {
         </div>
       </BioContainer>
       <InstagramEmbed />
-    </>
+    </PageContainer>
   )
 }
