@@ -24,7 +24,7 @@ const App = () => {
   const [loading, setLoading] = useState(false)
   const [selectedPhoto, setSelectedPhoto] = useState({})
   const [settings, setSettings] = useState({
-    pageSize: 20,
+    pageSize: 10,
     isGrid: true,
     photoSize: 20,
     photoQuery: 'minimal'

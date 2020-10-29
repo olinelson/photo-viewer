@@ -19,7 +19,11 @@ export default ({ photos, setSelectedPhoto, size }) => {
         <FadeIn>
           <List.Item>
             <ListItemContainer>
-              <Image src={p.urls.regular} width={`${size}rem`} />
+              <Image
+                src={p.urls.regular}
+                alt={p.alt_description}
+                width={`${size}rem`}
+              />
               <PhotoDetails listView selectedPhoto={p} />
             </ListItemContainer>
           </List.Item>
