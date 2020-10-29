@@ -23,7 +23,7 @@ const App = () => {
   const totalPages = useRef(1)
 
   const [settings, setSettings] = useState({
-    pageSize: 10,
+    pageSize: 20,
     isGrid: true,
     photoSize: 20,
     photoQuery: 'something'
@@ -38,10 +38,13 @@ const App = () => {
 
   const reload = () => {
     setPage(1)
+    seenIds.current = []
+    setPhotos([])
     getPhotos(true)
   }
 
   const getPhotos = async refresh => {
+    console.log('getting photos', { refresh })
     try {
       setLoading(true)
       const res = await unsplash.search.photos(
@@ -55,14 +58,16 @@ const App = () => {
         message.info('No photos found.')
         return setLoading(false)
       }
+
+      totalPages.current = json.total_pages
+      const newPhotos = json.results.filter(
+        p => !seenIds.current.includes(p.id)
+      )
+      seenIds.current = [...seenIds.current, ...newPhotos.map(r => r.id)]
+
       if (refresh) {
-        setPhotos(json.results)
+        setPhotos(newPhotos)
       } else {
-        totalPages.current = json.total_pages
-        const newPhotos = json.results.filter(
-          p => !seenIds.current.includes(p.id)
-        )
-        seenIds.current = newPhotos.map(r => r.id)
         setPhotos([...photos, ...newPhotos])
       }
       setLoading(false)

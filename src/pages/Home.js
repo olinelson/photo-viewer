@@ -1,11 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react'
-import firebase from 'firebase'
-
-import Unsplash, { toJson } from 'unsplash-js'
+import React, { useEffect } from 'react'
 import PhotoGrid from '../components/PhotoGrid'
 import LoadingFooter from '../components/LoadingFooter'
-import SelectedImageModal from '../components/SelectedPhotoModal'
-import { message } from 'antd'
+import SelectedPhotoModal from '../components/SelectedPhotoModal'
 import PhotoList from '../components/PhotoList'
 
 export default props => {
@@ -21,21 +17,21 @@ export default props => {
   } = props
   const { photoSize, isGrid } = settings
 
-  const onScroll = function (ev) {
-    if (
-      window.innerHeight + window.scrollY >= document.body.scrollHeight - 100 &&
-      !loading &&
-      totalPages.current > page
-    ) {
-      setPage(page + 1)
-    }
-  }
-
   useEffect(() => {
+    const onScroll = function () {
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.body.scrollHeight - 100
+      const areMorePages = totalPages.current > page
+
+      if (atBottom && !loading && areMorePages && photoSize >= 20) {
+        setPage(page + 1)
+      }
+    }
+
     window.addEventListener('scroll', onScroll)
 
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [page, loading, photoSize, totalPages, setPage])
 
   return (
     <>
@@ -53,9 +49,9 @@ export default props => {
         />
       )}
 
-      {loading ? <LoadingFooter /> : null}
+      <LoadingFooter {...props} />
 
-      <SelectedImageModal
+      <SelectedPhotoModal
         selectedPhoto={selectedPhoto}
         setSelectedPhoto={setSelectedPhoto}
       />

@@ -12,8 +12,8 @@ const removeScript = filename => {
   for (var i = tags.length; i >= 0; i--) {
     if (
       tags[i] &&
-      tags[i].getAttribute('src') != null &&
-      tags[i].getAttribute('src').indexOf(filename) != -1
+      tags[i].getAttribute('src') !== null &&
+      tags[i].getAttribute('src').indexOf(filename) !== -1
     )
       tags[i].parentNode.removeChild(tags[i])
   }

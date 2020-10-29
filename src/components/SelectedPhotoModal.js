@@ -9,7 +9,6 @@ export default ({ selectedPhoto, setSelectedPhoto }) => {
       visible={selectedPhoto.id}
       onCancel={() => setSelectedPhoto({})}
       destroyOnClose
-      footer={null}
       bodyStyle={{ padding: 0 }}
       footer={<PhotoDetails selectedPhoto={selectedPhoto} />}
     >

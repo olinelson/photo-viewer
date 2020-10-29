@@ -26,6 +26,14 @@ export default props => {
             onChange={value => setSettings({ ...settings, photoSize: value })}
           />
         </Form.Item>
+        <Form.Item label='Page size'>
+          <Slider
+            min={1}
+            max={100}
+            value={settings.pageSize}
+            onChange={value => setSettings({ ...settings, pageSize: value })}
+          />
+        </Form.Item>
         <Form.Item label='Photo query'>
           <Input
             value={settings.photoQuery}

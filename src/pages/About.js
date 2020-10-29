@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Image } from 'antd'
-import Avatar from 'antd/lib/avatar/avatar'
 import Title from 'antd/lib/typography/Title'
 import Paragraph from 'antd/lib/typography/Paragraph'
 import InstagramEmbed from '../components/InstagramEmbed'

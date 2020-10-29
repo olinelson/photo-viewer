@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Spin } from 'antd'
+import { Button, Spin } from 'antd'
 
 const Footer = styled.div`
   display: flex;
@@ -9,10 +9,25 @@ const Footer = styled.div`
   padding: 4rem;
 `
 
-export default () => {
+export default props => {
+  const { loading, page, setPage, totalPages } = props
+
+  console.log(page, totalPages.current)
+
+  const buttonOrSpinner = () => {
+    if (loading) return <Spin />
+    else if (totalPages.current > page) {
+      return <Button onClick={() => setPage(page + 1)}>Load more</Button>
+    }
+  }
+
   return (
     <Footer>
-      <Spin />
+      {buttonOrSpinner()}
+      {/* {loading ? <Spin /> : null}
+      {totalPages.current > page ? (
+        <Button onClick={() => setPage(page + 1)}>Load more</Button>
+      ) : null} */}
     </Footer>
   )
 }

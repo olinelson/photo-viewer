@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import { Layout, Menu, Breadcrumb, Typography, Button, Switch } from 'antd'
+import React from 'react'
+import { Layout, Button } from 'antd'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { SettingOutlined, ReloadOutlined } from '@ant-design/icons'
 
-const { Header, Content, Sider } = Layout
+const { Header, Content } = Layout
 
 const StyledHeader = styled(Header)`
   background-color: white;
@@ -23,11 +23,6 @@ const SiteTitle = styled(Link)`
   padding: 0;
 `
 
-const StyledSider = styled(Sider)`
-  .ant-layout-sider-trigger {
-    background-color: rgba(0, 0, 0, 0);
-  }
-`
 const StyledContent = styled(Content)`
   padding: 1.5rem;
   background-color: white;
@@ -39,7 +34,7 @@ export default props => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <StyledHeader>
-        <SiteTitle to='/'>Photo viewer</SiteTitle>
+        <SiteTitle to='/'>Foto.</SiteTitle>
         <Link to='/about'>About</Link>
         <Button
           type='primary'
