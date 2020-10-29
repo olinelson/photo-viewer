@@ -1,17 +1,30 @@
 import React from 'react'
-import { Layout, Button } from 'antd'
-import { Link } from 'react-router-dom'
+import { Layout, Button, Menu } from 'antd'
+import { Link, useLocation, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
-import { SettingOutlined, ReloadOutlined } from '@ant-design/icons'
+import {
+  SettingOutlined,
+  ReloadOutlined,
+  AppstoreOutlined
+} from '@ant-design/icons'
+import Title from 'antd/lib/typography/Title'
 
 const { Header, Content } = Layout
 
+const Logo = styled.h1`
+  margin: 0;
+  padding: 0;
+  font-size: 2.5rem;
+`
+
 const StyledHeader = styled(Header)`
   background-color: white;
-  display: flex;
+  /* display: flex; */
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  grid-gap: 1rem;
   align-items: center;
-  align-content: center;
-  padding: 0 1.5rem;
+  padding: 0 1.5rem 5rem 1.5rem;
   justify-content: space-between;
   position: sticky;
   top: 0;
@@ -29,13 +42,34 @@ const StyledContent = styled(Content)`
 `
 
 export default props => {
+  const location = useLocation()
+  const history = useHistory()
+
+  console.log(location)
+
   const { setSettingsDrawerOpen, reload } = props
+
+  const navigateToPage = e => {
+    console.log('click ', e)
+    history.push(e.key)
+  }
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <StyledHeader>
-        <SiteTitle to='/'>Foto.</SiteTitle>
-        <Link to='/about'>About</Link>
+        <Menu
+          mode='horizontal'
+          onClick={navigateToPage}
+          selectedKeys={[location.pathname]}
+        >
+          <Menu.Item key='/'>
+            <Logo>Foto.</Logo>
+          </Menu.Item>
+          <Menu.Item key='/about'>About</Menu.Item>
+        </Menu>
+
+        <div />
+
         <Button
           type='primary'
           onClick={reload}

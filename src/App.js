@@ -16,25 +16,24 @@ import Unsplash, { toJson } from 'unsplash-js'
 import SettingsDrawer from './components/SettingsDrawer'
 
 const App = () => {
+  const [firebaseApp] = firebase.apps
+  const { unsplashAccessKey } = firebaseApp.options
+  const unsplash = new Unsplash({ accessKey: unsplashAccessKey })
+
   const [settingsDrawerOpen, setSettingsDrawerOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [selectedPhoto, setSelectedPhoto] = useState({})
-  const seenIds = useRef([])
-  const totalPages = useRef(1)
-
   const [settings, setSettings] = useState({
     pageSize: 20,
     isGrid: true,
     photoSize: 20,
-    photoQuery: 'something'
+    photoQuery: 'minimal'
   })
   const [page, setPage] = useState(1)
-
-  const [firebaseApp] = firebase.apps
-  const { unsplashAccessKey } = firebaseApp.options
   const [photos, setPhotos] = useState([])
 
-  const unsplash = new Unsplash({ accessKey: unsplashAccessKey })
+  const seenIds = useRef([])
+  const totalPages = useRef(1)
 
   const reload = () => {
     setPage(1)
@@ -44,7 +43,6 @@ const App = () => {
   }
 
   const getPhotos = async refresh => {
-    console.log('getting photos', { refresh })
     try {
       setLoading(true)
       const res = await unsplash.search.photos(
@@ -76,6 +74,7 @@ const App = () => {
       setLoading(false)
     }
   }
+
   useEffect(() => {
     getPhotos()
   }, [page])
