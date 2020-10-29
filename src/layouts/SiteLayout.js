@@ -2,12 +2,7 @@ import React from 'react'
 import { Layout, Button, Menu } from 'antd'
 import { Link, useLocation, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
-import {
-  SettingOutlined,
-  ReloadOutlined,
-  AppstoreOutlined
-} from '@ant-design/icons'
-import Title from 'antd/lib/typography/Title'
+import { SettingOutlined, ReloadOutlined } from '@ant-design/icons'
 
 const { Header, Content } = Layout
 
@@ -19,7 +14,6 @@ const Logo = styled.h1`
 
 const StyledHeader = styled(Header)`
   background-color: white;
-  /* display: flex; */
   display: grid;
   grid-template-columns: auto 1fr auto auto;
   grid-gap: 1rem;
@@ -29,11 +23,6 @@ const StyledHeader = styled(Header)`
   position: sticky;
   top: 0;
   z-index: 100;
-`
-const SiteTitle = styled(Link)`
-  font-size: 2rem;
-  margin: 0;
-  padding: 0;
 `
 
 const StyledContent = styled(Content)`
@@ -70,15 +59,9 @@ export default props => {
 
         <div />
 
-        <Button
-          type='primary'
-          onClick={reload}
-          shape='circle'
-          icon={<ReloadOutlined />}
-        />
+        <Button onClick={reload} shape='circle' icon={<ReloadOutlined />} />
         <Button
           onClick={() => setSettingsDrawerOpen(true)}
-          type='primary'
           shape='circle'
           icon={<SettingOutlined />}
         />

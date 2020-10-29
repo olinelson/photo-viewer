@@ -11,13 +11,14 @@ const BioContainer = styled.div`
   grid-gap: 1rem;
   margin-bottom: 1rem;
   @media (max-width: 600px) {
-    grid-template-columns: minmax(20rem, 1fr);
+    grid-template-columns: 1fr;
   }
 `
 
 export default () => {
   return (
     <>
+      {/* <Image src='https://olinelson.com/images/headshot.jpg' /> */}
       <BioContainer>
         <Image src='https://olinelson.com/images/headshot.jpg' />
         <div>
@@ -35,13 +36,13 @@ export default () => {
             patience and persistence when building skills and developing unique
             products.
           </Paragraph>
+          <Paragraph style={{ gridColumn: 'span 2' }}>
+            Here is a show reel of my most recent album. Music written by my
+            beautiful wife Emma Stephenson.
+          </Paragraph>
         </div>
-        <Paragraph style={{ gridColumn: 'span 2' }}>
-          Here is a show real of my most recent album. Music written by my
-          beautiful wife Emma Stephenson.
-        </Paragraph>
-        <InstagramEmbed />
       </BioContainer>
+      <InstagramEmbed />
     </>
   )
 }
