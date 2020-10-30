@@ -23,7 +23,7 @@ export default props => {
         window.innerHeight + window.scrollY >= document.body.scrollHeight - 100
       const areMorePages = totalPages.current > page
 
-      if (atBottom && !loading && areMorePages && photoSize >= 20) {
+      if (atBottom && !loading && areMorePages) {
         setPage(page + 1)
       }
     }

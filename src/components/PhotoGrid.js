@@ -12,7 +12,6 @@ const PhotoGrid = styled.div`
 `
 
 export default ({ photos, setSelectedPhoto, size }) => {
-  console.log(photos)
   return (
     <PhotoGrid size={size}>
       {photos.map(p => (

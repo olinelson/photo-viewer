@@ -72,7 +72,9 @@ const App = () => {
       }
       setLoading(false)
     } catch (error) {
-      message.error('Something went wrong...')
+      message.error(
+        'Something went wrong. The api might have maxed out. Try again the next hour'
+      )
       setLoading(false)
     }
   }
