@@ -1,6 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { InstagramOutlined, TwitterOutlined } from '@ant-design/icons'
+import {
+  InstagramOutlined,
+  TwitterOutlined,
+  DownloadOutlined
+} from '@ant-design/icons'
 import { Avatar, Button } from 'antd'
 
 const PhotoDetails = styled.div`
@@ -30,6 +34,7 @@ const Description = styled.p`
 `
 
 export default ({ selectedPhoto, listView }) => {
+  console.log(selectedPhoto)
   return (
     <PhotoDetails listView>
       <AvatarContainer listView>
@@ -51,6 +56,11 @@ export default ({ selectedPhoto, listView }) => {
               target='_blank'
               icon={<InstagramOutlined />}
             ></Button>
+          ) : null}
+          {selectedPhoto?.links?.download ? (
+            <a href={selectedPhoto?.links?.download} download target='_blank'>
+              <DownloadOutlined />
+            </a>
           ) : null}
         </SocialButtons>
       </AvatarContainer>

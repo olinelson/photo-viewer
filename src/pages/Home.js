@@ -20,7 +20,7 @@ export default props => {
   useEffect(() => {
     const onScroll = function () {
       const atBottom =
-        window.innerHeight + window.scrollY >= document.body.scrollHeight - 100
+        window.innerHeight + window.scrollY >= document.body.scrollHeight - 500
       const areMorePages = totalPages.current > page
 
       if (atBottom && !loading && areMorePages) {
