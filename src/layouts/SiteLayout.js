@@ -48,7 +48,7 @@ export default props => {
           onClick={navigateToPage}
           selectedKeys={[location.pathname]}
         >
-          <Menu.Item key='/'>
+          <Menu.Item style={{ marginLeft: 0 }} key='/'>
             <Logo>Foto.</Logo>
           </Menu.Item>
           <Menu.Item key='/about'>About</Menu.Item>
