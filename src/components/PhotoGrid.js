@@ -24,7 +24,7 @@ export default ({ photos, setSelectedPhoto, size }) => {
           <PhotoTile
             alt={p.alt_description}
             hoverable
-            bordered={true}
+            bordered={false}
             onClick={() => setSelectedPhoto(p)}
             src={p.urls?.regular}
           />

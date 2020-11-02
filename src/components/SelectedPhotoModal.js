@@ -14,17 +14,22 @@ export default ({ selectedPhoto, setSelectedPhoto }) => {
       footer={<PhotoDetails selectedPhoto={selectedPhoto} />}
     >
       <Image
-        src={selectedPhoto?.urls?.regular}
+        src={selectedPhoto?.urls?.full}
         alt={selectedPhoto?.alt_description}
+        height='100%'
         placeholder={
-          <Blurhash
-            hash={selectedPhoto?.blur_hash}
-            width={'100%'}
-            height={'100%'}
-            resolutionX={32}
-            resolutionY={32}
-            punch={1}
-          />
+          selectedPhoto?.blur_hash ? (
+            <Blurhash
+              hash={selectedPhoto.blur_hash}
+              width={'100%'}
+              height={'100%'}
+              resolutionX={32}
+              resolutionY={32}
+              punch={1}
+            />
+          ) : (
+            <Image src={selectedPhoto?.urls?.small} />
+          )
         }
       />
     </Modal>
